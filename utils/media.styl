@@ -1,0 +1,22 @@
+unless baseMedia is defined
+  error('БРЭЙКПОИНТЫ ПОДКЛЮЧИ, УРОД!')
+
+customMedia(min = 0, max = 0)
+  if max
+    if min
+      @media (min-width: unit(min, 'px')) and (max-width: unit(max, 'px') - unit(1, unit(max)))
+        {block}
+    else
+      @media (max-width: unit(max, 'px') - unit(1, unit(max)))
+        {block}
+  else if min
+    @media (min-width: unit(min, 'px'))
+      {block}
+  else
+    {block}
+
+Media(args...)
+  for mediaType in args
+    sizes = baseMedia[mediaType]
+    +customMedia(sizes["0"], sizes["1"])
+      {block}

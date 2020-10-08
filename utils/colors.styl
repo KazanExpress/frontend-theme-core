@@ -1,0 +1,11 @@
+baseColors = json('base.json', { hash: true })
+unless baseColors is defined
+  error('ЦВЕТА ПОДКЛЮЧИ, УРОД!')
+
+use("color-plugin.js", { baseColors: baseColors, fnName: 'getSubcolorFromBaseColor' })
+
+getSubcolorFromBaseColor(type, base)
+  action = substr(type, 0, 1)
+  amount = convert(replace(action, '', type))
+  amount *= (action == D ? -1 : 1)
+  hsla(hue(base), saturation(base), lightness(base) + (action != A ? amount : 0), action == A ? amount / 100 : 1)
