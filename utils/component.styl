@@ -1,0 +1,17 @@
+use('../plugins/component.js')
+
+CreateMod(name, namespace)
+  ${namespace}Modification{name}
+    {block}
+
+ApplyMods()
+  namespace = shift(arguments)
+  @extend ${namespace}
+  if arguments
+    for name in arguments
+      @extend ${namespace}Modification{name}
+
+RegisterComponent(name)
+  ${name}
+    {block}
+  WrapRegisterComponent(name)

@@ -1,7 +1,7 @@
 unless baseColors is defined
   error('ЦВЕТА ПОДКЛЮЧИ, УРОД!')
 
-use("color-plugin.js", { baseColors: baseColors, fnName: 'getSubcolorFromBaseColor' })
+use("../plugins/colors.js", { baseColors: baseColors, fnName: 'getSubcolorFromBaseColor' })
 
 getSubcolorFromBaseColor(type, base)
   action = substr(type, 0, 1)
