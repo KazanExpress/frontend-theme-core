@@ -6,10 +6,11 @@ CreateMod(name, namespace)
 
 ApplyMods()
   namespace = shift(arguments)
-  @extend ${namespace}
-  if arguments
-    for name in arguments
-      @extend ${namespace}Modification{name}
+  &
+    @extend ${namespace}
+    if arguments
+      for name in arguments
+        @extend ${namespace}Modification{name}
 
 RegisterComponent(name)
   ${name}
