@@ -1,26 +1,33 @@
 use('../plugins/component.js')
 
 CreateMod(name, namespace)
+  namespace = getName(namespace)
+  name = getName(name)
   ${namespace}Modification{name}
     {block}
 
 ApplyMods()
-  namespace = shift(arguments)
+  namespace = getName(shift(arguments))
   &
     @extend ${namespace}
     if arguments
-      for name in arguments
+      for nm in arguments
+        name = getName(nm)
         @extend ${namespace}Modification{name}
 
 RegisterComponent(name)
+  name = getName(name)
   ${name}
     {block}
   WrapRegisterComponent(name)
 
 UpdateComponent(name)
+  name = getName(name)
   ${name}
     {block}
 
 UpdateMod(name, namespace)
+  namespace = getName(namespace)
+  name = getName(name)
   ${namespace}Modification{name}
     {block}
