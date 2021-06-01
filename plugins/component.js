@@ -6,7 +6,10 @@ module.exports = function () {
     style.define('getName', function(node) {
       return new style.nodes.Literal(node.name || node);
     });
-    style.define('WrapRegisterComponent', function (name) {
+    style.define('WrapRegisterComponent', function (name, block) {
+      style.define(`__${name}Block`, function() {
+        return block;
+      })
       style.define(`${name}`, function (...args) {
 
         const callArgs = new style.nodes.Arguments();
@@ -19,6 +22,12 @@ module.exports = function () {
         }
 
         return new style.nodes.Call('ApplyMods', callArgs);
+      });
+    });
+
+    style.define('WrapRegisterMod', function (name, namespace, block) {
+      style.define(`__${namespace.val}Modification${name.val}`, function () {
+        return block;
       });
     });
   };
