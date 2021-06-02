@@ -50,7 +50,7 @@ module.exports = function ({ baseColors }) {
           },
         };
 
-        for (arg of types) {
+        for (let arg of types) {
           if (arg && !arg.isNull) {
             const action = arg.name.match(/([A-Z]{1,2})/)[0];
             let amount = arg.name.match(/([0-9]){1,}/)[0];
