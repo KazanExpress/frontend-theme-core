@@ -15,7 +15,7 @@ module.exports = function () {
         const callArgs = new style.nodes.Arguments();
         callArgs.push(new style.nodes.Literal(name.name || name));
 
-        for (arg of args) {
+        for (let arg of args) {
           if (arg && !arg.isNull) {
             callArgs.push(new style.nodes.Literal(arg.name));
           }
