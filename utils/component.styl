@@ -1,20 +1,47 @@
 use('../plugins/component.js')
 
-ApplyMods()
-  namespace = getName(shift(arguments))
-
-  __{namespace+'Block'}()
-  if arguments
-    for nm in arguments
-      name = getName(nm)
-      __{namespace}Modification{name}()
-
-
 CreateMod(name, namespace)
-  name = getName(name)
-  namespace = getName(namespace)
-  WrapRegisterMod(name, namespace, block)
+  namespace = getString(namespace)
+  name = getString(name)
+  fullPath = getString('$' + namespace + 'Modification' + name)
+  modBlock = type(block) != 'ident' ? @block {{block}} : @block {}
+  define(fullPath, modBlock, true)
 
 RegisterComponent(name)
-  name = getName(name)
-  WrapRegisterComponent(name, block)
+  name = getString(name)
+  namespacePath = getString('$' + name)
+  componentBlock = type(block) != 'ident' ? @block {{block}} : @block {}
+  define(namespacePath, componentBlock, true)
+  WrapRegisterComponent(name)
+
+ApplyMods()
+  cleanNamespace = getString(shift(arguments))
+  namespace = getString('$' + cleanNamespace)
+  namespaceBlock = lookup(namespace)
+  {namespaceBlock}
+  if arguments
+    for mod in arguments
+      modPath = getString('$' + cleanNamespace + 'Modification' + mod)
+      modBlock = lookup(modPath)
+      {modBlock}
+
+UpdateComponent(name)
+  name = getString(name)
+  namePath = getString('$' + name)
+  componentBlock = lookup(namePath)
+  newBlock = @block {
+    {componentBlock}
+    {block}
+  }
+  define(namePath, newBlock, true)
+
+UpdateMod(name, namespace)
+  namespace = getString(namespace)
+  name = getString(name)
+  fullPath = getString('$' + namespace + 'Modification' + name)
+  modBlock = lookup(fullPath)
+  newBlock = @block {
+    {modBlock}
+    {block}
+  }
+  define(fullPath, newBlock, true)
