@@ -1,15 +1,12 @@
 module.exports = function () {
   return function (style) {
-    style.define('log', function() {
-      console.log(...arguments);
-    });
     style.define('getName', function(node) {
       return new style.nodes.Literal(node.name || node);
     });
     style.define('getString', function(node) {
       return new style.nodes.String(node.name || node);
     });
-    style.define('WrapRegisterComponent', function (name) {
+    style.define('WrapRegisterElement', function (name) {
       style.define(name.val, function (...args) {
         const callArgs = new style.nodes.Arguments();
         callArgs.push(new style.nodes.Literal(name.val || name));

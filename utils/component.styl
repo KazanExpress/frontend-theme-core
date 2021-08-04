@@ -1,4 +1,4 @@
-use('../plugins/component.js')
+use('../plugins/element.js')
 
 CreateMod(name, namespace)
   namespace = getString(namespace)
@@ -7,12 +7,12 @@ CreateMod(name, namespace)
   modBlock = type(block) != 'ident' ? @block {{block}} : @block {}
   define(fullPath, modBlock, true)
 
-RegisterComponent(name)
+RegisterElement(name)
   name = getString(name)
   namespacePath = getString('$' + name)
-  componentBlock = type(block) != 'ident' ? @block {{block}} : @block {}
-  define(namespacePath, componentBlock, true)
-  WrapRegisterComponent(name)
+  elementBlock = type(block) != 'ident' ? @block {{block}} : @block {}
+  define(namespacePath, elementBlock, true)
+  WrapRegisterElement(name)
 
 ApplyMods()
   cleanNamespace = getString(shift(arguments))
@@ -25,12 +25,12 @@ ApplyMods()
       modBlock = lookup(modPath)
       {modBlock}
 
-UpdateComponent(name)
+UpdateElement(name)
   name = getString(name)
   namePath = getString('$' + name)
-  componentBlock = lookup(namePath)
+  elementBlock = lookup(namePath)
   newBlock = @block {
-    {componentBlock}
+    {elementBlock}
     {block}
   }
   define(namePath, newBlock, true)
