@@ -1,8 +1,6 @@
-unless baseColors is defined
-  error('ЦВЕТА ПОДКЛЮЧИ, УРОД!')
-
 registerPalette(baseColors)
   use("../plugins/colors.js", { baseColors: baseColors })
 
-registerPalette(baseColors)
+if baseColors is defined
+  registerPalette(baseColors)
 
