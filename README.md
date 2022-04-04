@@ -1,1 +1,1 @@
-# frontend-theme-core
+# frontend-theme Core
