@@ -1,20 +1,16 @@
 module.exports = function ({ baseColors }) {
-  const bases = baseColors[ 0 ];
+  const bases = baseColors[0];
+
   return function (style) {
     for (let key in bases) {
       style.define(key, function (...types) {
-        let value = bases[ key ];
-        let parsed = value.match(/hsla\((.*)\)/)[ 1 ].split(',');
-
-        const colorParts = [
-          'hue',
-          'saturation',
-          'lightness',
-          'alpha'
-        ];
+        let value = bases[key];
+        let parsed = value.match(/hsla\((.*)\)/)[1].split(',');
+        const colorParts = ['hue', 'saturation', 'lightness', 'alpha'];
 
         const hslaParts = colorParts.reduce((acc, cur, ind) => {
           acc[cur] = parseInt(parsed[ind]);
+
           return acc;
         }, {});
 
@@ -54,7 +50,10 @@ module.exports = function ({ baseColors }) {
           if (arg && !arg.isNull) {
             const action = arg.name.match(/([A-Z]{1,2})/)[0];
             let amount = arg.name.match(/([0-9]){1,}/)[0];
-            let newPart = modMap[action].base !== undefined ? modMap[action].base : hslaParts[modMap[action].target]
+            let newPart =
+              modMap[action].base !== undefined
+                ? modMap[action].base
+                : hslaParts[modMap[action].target];
 
             if (modMap[action]) {
               amount *= modMap[action].direction;
@@ -66,9 +65,8 @@ module.exports = function ({ baseColors }) {
         }
 
         let hsla = new style.nodes.HSLA(
-          ...(Object
-              .keys(hslaParts)
-              .map(el => new style.nodes.Unit(hslaParts[el], el).val)
+          ...Object.keys(hslaParts).map(
+            (el) => new style.nodes.Unit(hslaParts[el], el).val,
           ),
         );
 
