@@ -1,3 +1,5 @@
+> ⚠️⚠️⚠️ репозиторий переехал в [gitlab](https://gitlab.platform.corp/magnitonline/mm/frontend/frontend-theme-core) ⚠️⚠️⚠️
+
 # Theme Core
 
 > Библиотека для работы с элементами, цветами и медия запросами. Служит как инструмент для создания тем.
